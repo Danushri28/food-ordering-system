@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | FoodExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h2 class="logo">Select Your Meal</h2>
+        <div class="nav-links">
+            <a href="index.html">BACK TO RESTAURANTS</a>
+            <a href="cart.html">VIEW CART</a>
+        </div>
+    </nav>
+
+    <main class="viewport-wrapper">
+        <section class="hero-section">
+            <div class="brand-badge">EST. 2026 • FRESHLY PREPARED</div>
+            <h1 id="restaurant-title">Our <span>Menu</span></h1>
+        </section>
+
+        <section class="restaurant-container" id="menu-items"></section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const menuContainer = document.getElementById("menu-items");
+        const titleElement = document.getElementById("restaurant-title");
+        
+        const restaurantId = localStorage.getItem("restaurantId");
+
+        function displayMenu() {
+            const items = menus[restaurantId];
+            
+            if (!items) {
+                menuContainer.innerHTML = "<h2>Menu not found.</h2>";
+                return;
+            }
+
+            menuContainer.innerHTML = items.map(item => `
+                <div class="card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="card-content">
+                        <h3>${item.name}</h3>
+                        <p>₹${item.price}</p>
+                        <button class="view-menu-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}')">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(name, price, img) {
+            cart.push({ name, price, img });
+            saveCart(); 
+            alert(name + " added to your selection!");
+        }
+
+        displayMenu();
+    </script>
+</body>
+</html>

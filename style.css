@@ -1,0 +1,176 @@
+/* 1. Global Reset & Layout Control */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden; /* Professional "No-Scroll" look */
+}
+
+/* 2. Navigation Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    height: 12vh;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    color: #ffb400;
+    font-size: 1.8rem;
+}
+
+.nav-links a {
+    color: #ffb400;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-left: 30px;
+}
+
+/* 3. Main Content Wrapper */
+.viewport-wrapper {
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 8%;
+}
+
+.hero-section {
+    height: 25vh;
+    padding-top: 2vh;
+}
+
+.brand-badge {
+    display: inline-block;
+    border: 1px solid #ffb400;
+    color: #ffb400;
+    font-size: 10px;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vh, 3.2rem);
+    margin-bottom: 10px;
+}
+
+h1 span {
+    color: #ffb400;
+}
+
+.category-tags {
+    display: flex;
+    gap: 20px;
+    color: #888;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+/* 4. Restaurant Grid Fix */
+.restaurant-container {
+    height: 58vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Forces 3 perfect columns */
+    gap: 25px;
+    align-items: start;
+    padding-top: 10px;
+}
+.card {
+    background: #141414;
+    border: 1px solid rgba(255, 180, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 180, 0, 0.4);
+}
+
+.card img {
+    width: 100%;       
+    height: 200px;     
+    object-fit: cover; 
+    display: block;   
+}
+
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+.card-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; 
+    margin-bottom: 6px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    color: #ffffff;
+}
+
+.card-content p {
+    color: #ffb400;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.view-menu-btn {
+    background: transparent;
+    color: #ffb400;
+    border: 1px solid #ffb400;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-menu-btn:hover {
+    background: #ffb400;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255, 180, 0, 0.3);
+}
+
+.cart-card {
+    display: flex;
+    align-items: center;
+    background: #111;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-card img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 25px;
+}
+
+.remove-btn {
+    background: none;
+    border: 1px solid #ff4747;
+    color: #ff4747;
+    padding: 8px 15px;
+    font-size: 10px;
+    cursor: pointer;
+    margin-left: auto;
+}

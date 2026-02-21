@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | FoodExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffb400;
+            --bg: #0a0a0a;
+            --card-bg: #141414;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .back-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            text-shadow: 0 0 10px rgba(255, 180, 0, 0.5);
+        }
+        .container {
+            padding: 60px 8%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        #cart-display {
+            display: flex;
+            flex-direction: column;
+            gap: 25px; 
+        }
+
+        .cart-card {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .cart-card:hover {
+            border-color: rgba(255, 180, 0, 0.3);
+        }
+
+        .cart-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 30px;
+        }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-info h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+        }
+
+        .item-info p {
+            color: var(--gold);
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .remove-btn {
+            background: transparent;
+            color: #ff4757;
+            border: 1px solid #ff4757;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .cart-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .total-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+
+        .total-amount span {
+            color: var(--gold);
+        }
+
+        .place-order-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 20px 60px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(255, 180, 0, 0.1);
+        }
+
+        .place-order-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(255, 180, 0, 0.6), 
+                        0 0 60px rgba(255, 180, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            font-size: 1.2rem;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h2>Your Selection</h2>
+        <a href="index.html" class="back-link">← Back to Menu</a>
+    </nav>
+
+    <div class="container">
+        <div id="cart-display"></div>
+        <div id="cart-total"></div>
+    </div>
+
+    <script>
+        const cartDiv = document.getElementById("cart-display");
+        const totalDiv = document.getElementById("cart-total");
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function renderCart() {
+            cartDiv.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartDiv.innerHTML = "<p class='empty-cart-msg'>Your cart is currently empty.</p>";
+                totalDiv.innerHTML = "";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartDiv.innerHTML += `
+                    <div class="cart-card">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="item-info">
+                            <h3>${item.name}</h3>
+                            <p>₹${item.price}</p>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+            });
+
+            totalDiv.innerHTML = `
+                <div class="cart-footer">
+                    <h3 class="total-amount">Total Amount: <span>₹${total}</span></h3>
+                    <button class="place-order-btn" onclick="placeOrder()">Place Your Order</button>
+                </div>
+            `;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        function placeOrder() {
+            if(cart.length > 0) {
+                alert("Thank you! Your order has been placed successfully.");
+                localStorage.removeItem("cart");
+                window.location.href = "index.html";
+            }
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
